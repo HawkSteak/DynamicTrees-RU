@@ -364,7 +364,7 @@
           "dtbop:fir" : 1
         }
       },
-      "density": 1.0,
+      "density": [0.8],
       "chance": 1.0,
       "forestness" : 1.0
     }
@@ -379,7 +379,7 @@
           "dtbop:maple" : 1
         }
       },
-      "density": 0.8,
+      "density": [0.6],
       "chance": 0.9,
       "forestness" : 1.0
     }
