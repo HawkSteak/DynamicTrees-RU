@@ -30,6 +30,10 @@ repositories {
     }
     maven("https://harleyoconnor.com/maven")
     maven("https://squiddev.cc/maven/")
+    mavenLocal()
+    flatDir {
+        dirs("libs")
+    }
 }
 
 val modName = property("modName")
@@ -41,7 +45,7 @@ version = "$mcVersion-$modVersion"
 group = property("group")
 
 minecraft {
-    mappings("parchment", "${property("mappingsVersion")}-$mcVersion")
+    mappings(property("mappingsChannel"), property("mappingsVersion"))
 
     runs {
         create("client") {
@@ -83,17 +87,21 @@ sourceSets.main.get().resources {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:${mcVersion}-${property("forgeVersion")}")
+    minecraft("net.minecraftforge:forge:1.20.1-47.2.0")
 
-    implementation(fg.deobf("com.ferreusveritas.dynamictrees:DynamicTrees-$mcVersion:${property("dynamicTreesVersion")}"))
-    implementation(fg.deobf("curse.maven:biomes-o-plenty-220318:4473556"))
+    implementation(fg.deobf("curse.maven:dynamictrees-252818:5065701"))
+    implementation(fg.deobf("curse.maven:biomes-o-plenty-220318:4764804"))
 
-    runtimeOnly(fg.deobf("com.ferreusveritas.dynamictreesplus:DynamicTreesPlus-$mcVersion:${property("dynamicTreesPlusVersion")}"))
+    //Uncomment/add the dependency for DynamicTreesPlus before building
+    //runtimeOnly(fg.deobf("com.ferreusveritas.dynamictreesplus:DynamicTreesPlus-$mcVersion:${property("dynamicTreesPlusVersion")}"))
     runtimeOnly(fg.deobf("curse.maven:terrablender-563928:4618490"))
-    runtimeOnly(fg.deobf("curse.maven:jade-324717:4433884"))
-    runtimeOnly(fg.deobf("curse.maven:jei-238222:4615177"))
-    runtimeOnly(fg.deobf("org.squiddev:cc-tweaked-$mcVersion:${property("ccVersion")}"))
-    runtimeOnly(fg.deobf("com.harleyoconnor.suggestionproviderfix:SuggestionProviderFix-1.19:${property("suggestionProviderFixVersion")}"))
+    runtimeOnly(fg.deobf("curse.maven:jade-324717:4986594"))
+    compileOnly(fg.deobf("mezz.jei:jei-$mcVersion-forge-api:${property("jeiVersion")}"))
+    compileOnly(fg.deobf("mezz.jei:jei-$mcVersion-common-api:${property("jeiVersion")}"))
+    runtimeOnly(fg.deobf("mezz.jei:jei-$mcVersion-forge:${property("jeiVersion")}"))
+    runtimeOnly(fg.deobf("cc.tweaked:cc-tweaked-$mcVersion-core:${property("ccVersion")}"))
+    runtimeOnly(fg.deobf("cc.tweaked:cc-tweaked-$mcVersion-forge:${property("ccVersion")}"))
+    runtimeOnly(fg.deobf("curse.maven:suggestion-provider-fix-469647:4591193"))
 }
 
 tasks.jar {
